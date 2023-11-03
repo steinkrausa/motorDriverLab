@@ -131,5 +131,14 @@ try:
         time.sleep(3)
 #-------------------------------------------------#
 
+#-------------------- Arrows off -----------------#
+        print("Arrows off")
+        front_arrow.off()
+        back_arrow.off()
+        left_arrow.off()
+        right_arrow.off()
+        time.sleep(3)
+#-------------------------------------------------#
+
 except KeyboardInterrupt:
     GPIO.cleanup()
