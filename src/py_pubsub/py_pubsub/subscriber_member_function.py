@@ -10,7 +10,7 @@ class MinimalSubscriber(Node):
         super().__init__('minimal_subscriber')
         self.subscription = self.create_subscription(
             String,
-            'topic',
+            'my_topic',
             self.listener_callback,
             10)
         self.subscription  # prevent unused variable warning
@@ -24,13 +24,20 @@ def main(args=None):
 
     minimal_subscriber = MinimalSubscriber()
 
-    rclpy.spin(minimal_subscriber)
+    try:
+        rclpy.spin(minimal_subscriber)
 
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
-    minimal_subscriber.destroy_node()
-    rclpy.shutdown()
+    except KeyboardInterrupt:
+        print("\n")
+        print("Stopping...")
+ 
+    finally:
+        # Destroy the node explicitly
+        # (optional - otherwise it will be done automatically
+        # when the garbage collector destroys the node object)
+        minimal_subscriber.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == '__main__':

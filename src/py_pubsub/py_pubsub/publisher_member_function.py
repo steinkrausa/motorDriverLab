@@ -1,39 +1,47 @@
-import rclpy
-from rclpy.node import Node
+import rclpy                    # import the ROS Client Library for Python (RCLPY)
+from rclpy.node import Node     # from RCLPY, import the Node Object
 
-from std_msgs.msg import String
+from std_msgs.msg import String # from standard messages, import the String message
 
 
-class MinimalPublisher(Node):
+class MinimalPublisher(Node):   # Import the String message type from the standard messages
 
     def __init__(self):
-        super().__init__('minimal_publisher')
-        self.publisher_ = self.create_publisher(String, 'topic', 10)
-        timer_period = 0.5  # seconds
-        self.timer = self.create_timer(timer_period, self.timer_callback)
-        self.i = 0
+        super().__init__('minimal_publisher')                               # Initialize the Node with the name 'minimal_publisher'
+        self.publisher_ = self.create_publisher(String, 'my_topic', 10)     # Create a publisher for String type messages on the topic 'my_topic'
+        timer_period = 0.5                                                  # Define the timer period in seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)   # Create a timer that calls 'timer_callback' every 0.5 seconds
+        self.i = 0                                                          # Initialize a counter for message numbering
 
     def timer_callback(self):
-        msg = String()
-        msg.data = 'Hello World: %d' % self.i
-        self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)
-        self.i += 1
+        msg = String()                                          # Create a new String message
+        msg.data = 'Hello World: %d' % self.i                   # Assign text to msg.data, including the current value of i
+        self.publisher_.publish(msg)                            # Publish the message to the topic
+        self.get_logger().info('Publishing: "%s"' % msg.data)   # Log the published message for debugging
+        self.i += 1                                             # Increment the counter for the next message
 
 
 def main(args=None):
-    rclpy.init(args=args)
+    rclpy.init(args=args)                   # Initialize the ROS 2 Python client library
 
-    minimal_publisher = MinimalPublisher()
+    minimal_publisher = MinimalPublisher()  # Create an instance of the MinimalPublisher class
 
-    rclpy.spin(minimal_publisher)
+    try:
+        rclpy.spin(minimal_publisher)       # Keep the node active and processing callbacks until interrupted
 
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
-    minimal_publisher.destroy_node()
-    rclpy.shutdown()
+    except KeyboardInterrupt:   # Handle a keyboard interrupt (Ctrl+C)
+        print("\n")             # Print a newline for better format
+        print("Stopping...")    # Print a stopping message
+ 
+    finally:
+        # Destroy the node explicitly
+        # (optional - otherwise it will be done automatically
+        # when the garbage collector destroys the node object)
+        minimal_publisher.destroy_node()
+        if rclpy.ok():                      # Check if the rclpy library is still running
+            rclpy.shutdown()                # Shut down the ROS 2 client library, cleanly terminating the node
+
 
 
 if __name__ == '__main__':
-    main()
+    main()                  # Call the main function to execute the code when the script is run
