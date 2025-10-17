@@ -1,10 +1,9 @@
 import rclpy                    # import the ROS Client Library for Python (RCLPY)
-from rclpy.node import Node     # from RCLPY, import the Node Object
-
+from rclpy.node import Node     # from RCLPY, import the Node Class used to create ROS 2 nodes
 from std_msgs.msg import String # from standard messages, import the String message
 
 
-class MinimalPublisher(Node):   # Import the String message type from the standard messages
+class MinimalPublisher(Node):   # Create a new class called MinimalPublisher that inherits variables & functions from Node
 
     def __init__(self):
         super().__init__('minimal_publisher')                               # Initialize the Node with the name 'minimal_publisher'
