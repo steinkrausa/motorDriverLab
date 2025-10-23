@@ -1,4 +1,4 @@
-# GPIO_hat_test_template
+# GPIO Example Code
 This repository contains the following files:
 * test_gpio_directly.py
   * run using: `python3 test_gpio_directly.py`
