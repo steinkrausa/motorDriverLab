@@ -20,8 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-                'talker = param_pubsub.publisher:main',
-                'listener = param_pubsub.subscriber:main',
+                'talker = param_pubsub.param_publisher:main',
+                'listener = param_pubsub.param_subscriber:main',
 
         ],
 },

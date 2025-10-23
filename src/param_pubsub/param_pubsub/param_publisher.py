@@ -7,17 +7,17 @@ class MinimalPublisher(Node):   # Create a new class called MinimalPublisher tha
 
     def __init__(self):
         super().__init__('minimal_publisher')                               # Initialize the Node with the name 'minimal_publisher'
-        self.publisher_ = self.create_publisher(String, 'my_topic', 10)     # Create a publisher for String type messages on the topic 'my_topic'
+        self.publisher_ = self.create_publisher(String, 'param_topic', 10)  # Create a publisher for String type messages on the topic 'my_topic'
+        self.declare_parameter('my_parameter', 'Hi')                        # Instantiate parameter, set default value to 'Hi'
         timer_period = 0.5                                                  # Define the timer period in seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)   # Create a timer that calls 'timer_callback' every 0.5 seconds
-        self.i = 0                                                          # Initialize a counter for message numbering
 
     def timer_callback(self):
+        my_param = self.get_parameter('my_parameter').get_parameter_value().string_value
         msg = String()                                          # Create a new String message
-        msg.data = 'Hello World: %d' % self.i                   # Assign text to msg.data, including the current value of i
+        msg.data = my_param                                     # set msg.data to have the value of my_param
         self.publisher_.publish(msg)                            # Publish the message to the topic
         self.get_logger().info('Publishing: "%s"' % msg.data)   # Log the published message for debugging
-        self.i += 1                                             # Increment the counter for the next message
 
 
 def main(args=None):
