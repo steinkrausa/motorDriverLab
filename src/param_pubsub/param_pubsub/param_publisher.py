@@ -2,6 +2,11 @@ import rclpy                    # import the ROS Client Library for Python (RCLP
 from rclpy.node import Node     # from RCLPY, import the Node Class used to create ROS 2 nodes
 from std_msgs.msg import String # from standard messages, import the String message
 
+import os
+include_dir = os.path.dirname(os.path.realpath(__file__)) + "/../../../../../../src/include/"
+import sys
+sys.path.append(include_dir)
+from hat_library import *
 
 class MinimalPublisher(Node):   # Create a new class called MinimalPublisher that inherits variables & functions from Node
 
