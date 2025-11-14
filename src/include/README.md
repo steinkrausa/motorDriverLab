@@ -11,3 +11,8 @@ This repository contains the following files:
   * run this using: `python3 test_hat_library.py`
   * this python script demonstrates how to use the hat_library.py to make motors move and arrows turn on/off
   * expected behavior: different arrows should flash on the robot, at the same time motors will move on the robot. Motor movement requires the AA battery pack to be connected to the Raspberry Pi hat.
+* test_hat_library_sensor.py
+  * run this using: `python3 test_hat_library_sensor.py`
+  * this python script demonstrates how to use the hat_library.py to read the Digital Output values from Infrared Sensors
+  * expected behavior: terminal should loop, printing values of IR sensor 1, IR sensor 2, then an example error of what happens
+  when an invalid IR sensor pin is used.
